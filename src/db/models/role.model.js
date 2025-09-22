@@ -33,6 +33,7 @@ module.exports = (sequelize, DataTypes) => {
 			 * References: https://sequelize.org/master/manual/model-basics.html#table-name-inference
 			 */
 			tableName: 'role',
+			timestamps: false,
 		}
 	);
 
