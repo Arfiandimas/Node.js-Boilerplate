@@ -1,9 +1,9 @@
-const express = require('express');
-const validate = require('../../middlewares/validate');
-const userValidation = require('../../validations/user.validation');
-const userController = require('../../controllers/user.controller');
-const { grantAccess } = require('../../middlewares/validateAccessControl');
-const { resources } = require('../../config/roles');
+import express from 'express';
+import validate from '../../middlewares/validate.js';
+import userValidation from '../../validations/user.validation.js';
+import userController from '../../controllers/user.controller.js';
+import { grantAccess } from '../../middlewares/validateAccessControl.js';
+import { resources } from '../../config/roles.js';
 
 const router = express.Router();
 
@@ -12,7 +12,7 @@ router
 	.get(
 		grantAccess('readAny', resources.USERINFO),
 		validate(userValidation.getUsers),
-		userController.getUsers
+		userController.getUsers,
 	);
 
 router
@@ -20,20 +20,20 @@ router
 	.get(
 		grantAccess('readAny', resources.USERINFO),
 		validate(userValidation.getUser),
-		userController.getUser
+		userController.getUser,
 	)
 	.patch(
 		grantAccess('updateAny', resources.USERINFO),
 		validate(userValidation.updateUser),
-		userController.updateUser
+		userController.updateUser,
 	)
 	.delete(
 		grantAccess('deleteAny', resources.USERINFO),
 		validate(userValidation.deleteUser),
-		userController.deleteUser
+		userController.deleteUser,
 	);
 
-module.exports = router;
+export default router;
 
 /**
  * @swagger

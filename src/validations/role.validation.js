@@ -1,4 +1,4 @@
-const Joi = require('@hapi/joi');
+import Joi from '@hapi/joi';
 
 const createRole = {
 	body: Joi.object().keys({
@@ -38,10 +38,6 @@ const deleteRole = {
 	}),
 };
 
-module.exports = {
-	createRole,
-	getRoles,
-	getRole,
-	updateRole,
-	deleteRole,
-};
+export { createRole, getRoles, getRole, updateRole, deleteRole };
+
+export default { createRole, getRoles, getRole, updateRole, deleteRole };

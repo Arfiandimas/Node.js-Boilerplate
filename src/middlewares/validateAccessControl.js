@@ -1,6 +1,6 @@
-const httpStatus = require('http-status');
-const { roles } = require('../config/roles');
-const ApiError = require('../utils/ApiError');
+import httpStatus from 'http-status';
+import { roles } from '../config/roles.js';
+import ApiError from '../utils/ApiError.js';
 
 function grantAccess(action, resource) {
 	return async (req, _res, next) => {
@@ -18,7 +18,7 @@ function grantAccess(action, resource) {
 			if (!permission.granted) {
 				throw new ApiError(
 					httpStatus.FORBIDDEN,
-					"You don't have enough permission to perform this action"
+					"You don't have enough permission to perform this action",
 				);
 			}
 			next();
@@ -28,4 +28,4 @@ function grantAccess(action, resource) {
 	};
 }
 
-module.exports = { grantAccess };
+export { grantAccess };

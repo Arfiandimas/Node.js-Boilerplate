@@ -1,6 +1,5 @@
 module.exports = {
-	up: (queryInterface /* , Sequelize */) => {
-		return queryInterface.bulkInsert('user', [
+	up: (queryInterface /* , Sequelize */) => queryInterface.bulkInsert('user', [
 			{
 				name: 'Nana',
 				role_id: 1,
@@ -10,9 +9,6 @@ module.exports = {
 				created_date_time: new Date(),
 				modified_date_time: new Date(),
 			},
-		]);
-	},
-	down: (queryInterface /* , Sequelize */) => {
-		return queryInterface.bulkDelete('user', null, {});
-	},
+		]),
+	down: (queryInterface /* , Sequelize */) => queryInterface.bulkDelete('user', null, {}),
 };

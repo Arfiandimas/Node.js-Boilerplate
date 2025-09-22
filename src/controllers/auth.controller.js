@@ -1,12 +1,12 @@
-const httpStatus = require('http-status');
-const catchAsync = require('../utils/catchAsync');
-const {
+import httpStatus from 'http-status';
+import catchAsync from '../utils/catchAsync.js';
+import {
 	authService,
 	userService,
 	emailService,
 	tokenService,
-} = require('../services');
-const { verifyToken } = require('../utils/auth');
+} from '../services/index.js';
+import { verifyToken } from '../utils/auth.js';
 
 const register = catchAsync(async (req, res) => {
 	const user = await userService.createUser(req);
@@ -29,11 +29,11 @@ const login = catchAsync(async (req, res) => {
 
 const forgotPassword = catchAsync(async (req, res) => {
 	const resetPasswordToken = await tokenService.generateResetPasswordToken(
-		req.body.email
+		req.body.email,
 	);
 	await emailService.sendResetPasswordEmail(
 		req.body.email,
-		resetPasswordToken
+		resetPasswordToken,
 	);
 	res.send({ success: true });
 });
@@ -45,9 +45,6 @@ const resetPassword = catchAsync(async (req, res) => {
 	res.send({ success: true });
 });
 
-module.exports = {
-	register,
-	login,
-	forgotPassword,
-	resetPassword,
-};
+export { register, login, forgotPassword, resetPassword };
+
+export default { register, login, forgotPassword, resetPassword };

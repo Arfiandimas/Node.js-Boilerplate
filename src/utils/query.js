@@ -1,4 +1,4 @@
-const config = require('../config/config.js');
+import config from '../config/config.js';
 
 async function generateQuery(req, query) {
 	const result = await req.postgres
@@ -12,12 +12,9 @@ async function generateQuery(req, query) {
 
 function getOffset(
 	page = config.pagination.page,
-	limit = config.pagination.limit
+	limit = config.pagination.limit,
 ) {
 	return (page - 1) * limit;
 }
 
-module.exports = {
-	generateQuery,
-	getOffset,
-};
+export { generateQuery, getOffset };

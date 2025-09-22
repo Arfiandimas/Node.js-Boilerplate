@@ -1,4 +1,4 @@
-module.exports = (sequelize, DataTypes) => {
+export default (sequelize, DataTypes) => {
 	const user = sequelize.define(
 		'user',
 		{
@@ -43,7 +43,7 @@ module.exports = (sequelize, DataTypes) => {
 			 */
 			tableName: 'user',
 			timestamps: false,
-		}
+		},
 	);
 
 	user.associate = (models) => {

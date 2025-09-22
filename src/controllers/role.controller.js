@@ -1,7 +1,7 @@
-const httpStatus = require('http-status');
-const ApiError = require('../utils/ApiError');
-const catchAsync = require('../utils/catchAsync');
-const { roleService } = require('../services');
+import httpStatus from 'http-status';
+import ApiError from '../utils/ApiError.js';
+import catchAsync from '../utils/catchAsync.js';
+import { roleService } from '../services/index.js';
 
 const createRole = catchAsync(async (req, res) => {
 	const role = await roleService.createRole(req);
@@ -31,10 +31,6 @@ const updateRole = catchAsync(async (req, res) => {
 	res.send({ role });
 });
 
-module.exports = {
-	createRole,
-	getRoles,
-	getRole,
-	updateRole,
-	deleteRole,
-};
+export { createRole, getRoles, getRole, updateRole, deleteRole };
+
+export default { createRole, getRoles, getRole, updateRole, deleteRole };

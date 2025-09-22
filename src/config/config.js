@@ -1,8 +1,8 @@
-const dotenv = require('dotenv');
-const path = require('path');
-const Joi = require('@hapi/joi');
+import dotenv from 'dotenv';
+import path from 'path';
+import Joi from '@hapi/joi';
 
-dotenv.config({ path: path.join(__dirname, '../../.env') });
+dotenv.config({ path: path.join(process.cwd(), '.env') });
 
 const envVarsSchema = Joi.object()
 	.keys({
@@ -44,12 +44,12 @@ const envVarsSchema = Joi.object()
 
 		SMTP_HOST: Joi.string().description('server that will send the emails'),
 		SMTP_PORT: Joi.number().description(
-			'port to connect to the email server'
+			'port to connect to the email server',
 		),
 		SMTP_USERNAME: Joi.string().description('username for email server'),
 		SMTP_PASSWORD: Joi.string().description('password for email server'),
 		EMAIL_FROM: Joi.string().description(
-			'the from field in the emails sent by the app'
+			'the from field in the emails sent by the app',
 		),
 	})
 	.unknown();
@@ -62,7 +62,7 @@ if (error) {
 	throw new Error(`Config validation error: ${error.message}`);
 }
 
-module.exports = {
+export default {
 	env: envVars.NODE_ENV,
 	port: envVars.PORT,
 	pagination: {

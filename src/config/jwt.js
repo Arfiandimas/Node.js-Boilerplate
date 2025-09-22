@@ -1,5 +1,5 @@
-const expressJwt = require('express-jwt');
-const config = require('./config.js');
+import { expressjwt } from 'express-jwt';
+import config from './config.js';
 
 async function isRevoked(_req, _payload, done) {
 	done();
@@ -7,23 +7,19 @@ async function isRevoked(_req, _payload, done) {
 
 function jwt() {
 	const { secret } = config.jwt;
-	return expressJwt({
+	return expressjwt({
 		secret,
 		getToken: function fromHeaderOrQuerystring(req) {
 			const token = req.headers.authorization
 				? req.headers.authorization.split(' ')[1]
 				: req.query.token;
-			if (token) return token;
-			return null;
+			return token || null;
 		},
 		algorithms: ['HS256'],
 		isRevoked,
 	}).unless({
-		path: [
-			// public routes that don't require authentication
-			/\/v[1-9]\d*\/(auth|docs)(\/.*)?/
-		],
+		path: [/\/v[1-9]\d*\/(auth|docs)(\/.*)?/],
 	});
 }
 
-module.exports = jwt;
+export default jwt;

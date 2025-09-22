@@ -1,8 +1,8 @@
-const httpStatus = require('http-status');
-const { getOffset } = require('../utils/query');
-const ApiError = require('../utils/ApiError');
-const config = require('../config/config.js');
-const db = require('../db/models');
+import httpStatus from 'http-status';
+import { getOffset } from '../utils/query.js';
+import ApiError from '../utils/ApiError.js';
+import config from '../config/config.js';
+import db from '../db/models/index.js';
 
 async function getRoleById(roleId) {
 	const role = await db.role.findOne({
@@ -67,16 +67,11 @@ async function updateRole(req) {
 				returning: true,
 				plain: true,
 				raw: true,
-			}
+			},
 		)
 		.then((data) => data[1]);
 
 	return updatedRole;
 }
 
-module.exports = {
-	getRoleById,
-	getRoles,
-	createRole,
-	updateRole,
-};
+export { getRoleById, getRoles, createRole, updateRole };

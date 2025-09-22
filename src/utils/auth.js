@@ -1,11 +1,11 @@
-const jwt = require('jsonwebtoken');
-const bycrypt = require('bcrypt');
-const config = require('../config/config');
+import jwt from 'jsonwebtoken';
+import bycrypt from 'bcrypt';
+import config from '../config/config.js';
 
 function generateToken(data, expiresMs, secret = config.jwt.secret) {
 	const token = jwt.sign(
 		{ exp: Math.floor(expiresMs / 1000), ...data },
-		secret
+		secret,
 	);
 	return token;
 }
@@ -42,7 +42,7 @@ function generateExpires(hours) {
 	return ms;
 }
 
-module.exports = {
+export {
 	generateToken,
 	generateExpires,
 	verifyToken,

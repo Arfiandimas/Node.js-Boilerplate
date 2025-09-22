@@ -1,7 +1,7 @@
-const express = require('express');
-const swaggerJsdoc = require('swagger-jsdoc');
-const swaggerUi = require('swagger-ui-express');
-const swaggerDefinition = require('../../docs/swaggerDef');
+import express from 'express';
+import swaggerJsdoc from 'swagger-jsdoc';
+import swaggerUi from 'swagger-ui-express';
+import swaggerDefinition from '../../docs/swaggerDef.js';
 
 const router = express.Router();
 
@@ -16,7 +16,7 @@ router.get(
 	'/',
 	swaggerUi.setup(specs, {
 		explorer: true,
-	})
+	}),
 );
 
-module.exports = router;
+export default router;

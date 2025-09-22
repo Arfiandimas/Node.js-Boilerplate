@@ -1,4 +1,4 @@
-const AccessControl = require('accesscontrol');
+import AccessControl from 'accesscontrol';
 
 const ac = new AccessControl();
 
@@ -37,12 +37,9 @@ const grantsObject = {
 	},
 };
 
-const roles = (function () {
+const roles = (function initRoles() {
 	ac.setGrants(grantsObject);
 	return ac;
 })();
 
-module.exports = {
-	roles,
-	resources,
-};
+export { roles, resources };

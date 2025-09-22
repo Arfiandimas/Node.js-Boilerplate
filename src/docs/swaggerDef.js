@@ -1,5 +1,11 @@
-const { version } = require('../../package.json');
-const config = require('../config/config');
+import fs from 'fs';
+import path from 'path';
+import config from '../config/config.js';
+
+const pkg = JSON.parse(
+	fs.readFileSync(path.resolve(process.cwd(), 'package.json'), 'utf8'),
+);
+const { version } = pkg;
 
 const swaggerDef = {
 	openapi: '3.0.0',
@@ -18,4 +24,4 @@ const swaggerDef = {
 	],
 };
 
-module.exports = swaggerDef;
+export default swaggerDef;

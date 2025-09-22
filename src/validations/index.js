@@ -1,3 +1,5 @@
-module.exports.authValidation = require('./auth.validation');
-module.exports.userValidation = require('./user.validation');
-module.exports.roleValidation = require('./role.validation');
+import authValidation from './auth.validation.js';
+import userValidation from './user.validation.js';
+import roleValidation from './role.validation.js';
+
+export { authValidation, userValidation, roleValidation };

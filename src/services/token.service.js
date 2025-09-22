@@ -1,20 +1,20 @@
-const httpStatus = require('http-status');
-const config = require('../config/config');
-const userService = require('./user.service');
-const ApiError = require('../utils/ApiError');
-const { generateToken, generateExpires } = require('../utils/auth');
+import httpStatus from 'http-status';
+import config from '../config/config.js';
+import * as userService from './user.service.js';
+import ApiError from '../utils/ApiError.js';
+import { generateToken, generateExpires } from '../utils/auth.js';
 
 async function generateResetPasswordToken(email) {
 	const user = await userService.getUserByEmail(email);
 	if (!user || !user.id) {
 		throw new ApiError(
 			httpStatus.NOT_FOUND,
-			'User not found with this email'
+			'User not found with this email',
 		);
 	}
 
 	const expiresMs = generateExpires(
-		config.jwt.resetPasswordExpirationMinutes / 60
+		config.jwt.resetPasswordExpirationMinutes / 60,
 	);
 	const resetPasswordToken = generateToken({ id: user.id }, expiresMs);
 
@@ -23,13 +23,13 @@ async function generateResetPasswordToken(email) {
 
 async function generateAuthTokens({ userId, roleId }) {
 	const refreshTokenExpires = generateExpires(
-		config.jwt.refreshExpirationDays * 24
+		config.jwt.refreshExpirationDays * 24,
 	);
 
 	const refreshToken = generateToken({ userId }, refreshTokenExpires);
 
 	const accessTokenExpires = generateExpires(
-		config.jwt.accessExpirationMinutes / 60
+		config.jwt.accessExpirationMinutes / 60,
 	);
 	const accessToken = generateToken({ userId, roleId }, accessTokenExpires);
 
@@ -45,7 +45,4 @@ async function generateAuthTokens({ userId, roleId }) {
 	};
 }
 
-module.exports = {
-	generateResetPasswordToken,
-	generateAuthTokens,
-};
+export { generateResetPasswordToken, generateAuthTokens };

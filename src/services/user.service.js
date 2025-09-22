@@ -1,10 +1,10 @@
-const httpStatus = require('http-status');
-const { getOffset } = require('../utils/query');
-const ApiError = require('../utils/ApiError');
-const { encryptData } = require('../utils/auth');
-const config = require('../config/config.js');
-const db = require('../db/models');
-const roleService = require('./role.service');
+import httpStatus from 'http-status';
+import { getOffset } from '../utils/query.js';
+import ApiError from '../utils/ApiError.js';
+import { encryptData } from '../utils/auth.js';
+import config from '../config/config.js';
+import db from '../db/models/index.js';
+import * as roleService from './role.service.js';
 
 async function getUserByEmail(email) {
 	const user = await db.user.findOne({
@@ -120,7 +120,7 @@ async function updateUser(req) {
 		if (!hashedPassword) {
 			throw new ApiError(
 				httpStatus.INTERNAL_SERVER_ERROR,
-				'Internal Server Error'
+				'Internal Server Error',
 			);
 		}
 
@@ -133,7 +133,7 @@ async function updateUser(req) {
 		if (existedUser) {
 			throw new ApiError(
 				httpStatus.CONFLICT,
-				'This email is already exist'
+				'This email is already exist',
 			);
 		}
 	}
@@ -146,14 +146,14 @@ async function updateUser(req) {
 				returning: true,
 				plain: true,
 				raw: true,
-			}
+			},
 		)
 		.then((data) => data[1]);
 
 	return updatedUser;
 }
 
-module.exports = {
+export {
 	getUserByEmail,
 	getUserById,
 	createUser,

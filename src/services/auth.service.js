@@ -1,7 +1,7 @@
-const httpStatus = require('http-status');
-const userService = require('./user.service');
-const ApiError = require('../utils/ApiError');
-const { decryptData } = require('../utils/auth');
+import httpStatus from 'http-status';
+import * as userService from './user.service.js';
+import ApiError from '../utils/ApiError.js';
+import { decryptData } from '../utils/auth.js';
 
 async function loginUserWithEmailAndPassword(req) {
 	const { email, password } = req.body;
@@ -9,14 +9,14 @@ async function loginUserWithEmailAndPassword(req) {
 	if (!user) {
 		throw new ApiError(
 			httpStatus.UNAUTHORIZED,
-			'Invalid email or password'
+			'Invalid email or password',
 		);
 	}
 	const isPasswordMatch = await decryptData(password, user.password);
 	if (!isPasswordMatch) {
 		throw new ApiError(
 			httpStatus.UNAUTHORIZED,
-			'Invalid email or password'
+			'Invalid email or password',
 		);
 	}
 	delete user.password;
@@ -24,6 +24,4 @@ async function loginUserWithEmailAndPassword(req) {
 	return user;
 }
 
-module.exports = {
-	loginUserWithEmailAndPassword,
-};
+export { loginUserWithEmailAndPassword };

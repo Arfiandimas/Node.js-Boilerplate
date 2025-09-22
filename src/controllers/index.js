@@ -1,3 +1,5 @@
-module.exports.authController = require('./auth.controller');
-module.exports.userController = require('./user.controller');
-module.exports.roleController = require('./role.controller');
+import authController from './auth.controller.js';
+import userController from './user.controller.js';
+import roleController from './role.controller.js';
+
+export { authController, userController, roleController };
