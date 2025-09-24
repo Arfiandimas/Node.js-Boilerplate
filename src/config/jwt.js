@@ -1,8 +1,8 @@
 import { expressjwt } from 'express-jwt';
 import config from './config.js';
 
-async function isRevoked(_req, _payload, done) {
-	done();
+async function isRevoked(_req, payload) {
+  return false;
 }
 
 function jwt() {

@@ -6,13 +6,13 @@ function grantAccess(action, resource) {
 	return async (req, _res, next) => {
 		try {
 			// eslint-disable-next-line eqeqeq
-			const isOwnedUser = req.user.userId == req.params.userId;
+			const isOwnedUser = req.auth.userId == req.params.userId;
 			const modifiedAction = isOwnedUser
 				? action.replace('Any', 'Own')
 				: action;
 
 			const permission = roles
-				.can(JSON.stringify(req.user.roleId))
+				.can(JSON.stringify(req.auth.roleId))
 				[modifiedAction](resource);
 
 			if (!permission.granted) {
