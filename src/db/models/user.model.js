@@ -37,10 +37,6 @@ export default (sequelize, DataTypes) => {
 			},
 		},
 		{
-			/**
-			 * By default, sequelize will automatically transform all passed model names into plural
-			 * References: https://sequelize.org/master/manual/model-basics.html#table-name-inference
-			 */
 			tableName: 'user',
 			timestamps: false,
 		},

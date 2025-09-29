@@ -3,6 +3,7 @@
 import fs from 'fs';
 import path from 'path';
 import Sequelize from 'sequelize';
+import { fileURLToPath, pathToFileURL } from 'url';
 import config from '../../config/config.js';
 
 const db = {};
@@ -31,14 +32,15 @@ const sequelize = new Sequelize.Sequelize(
 	}
 );
 
-const __dirname = path.dirname(new URL(import.meta.url).pathname);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 for (const file of fs.readdirSync(__dirname)) {
 	if (file.indexOf('.') === 0 || !file.endsWith('.model.js')) continue;
 	const filePath = path.join(__dirname, file);
-	// dynamic import requires file:// URL
+	// dynamic import requires a file:// URL and must handle spaces or special chars
 	// eslint-disable-next-line no-await-in-loop
-	const imported = await import(`file://${filePath}`);
+	const imported = await import(pathToFileURL(filePath).href);
 	const modelDef = imported.default;
 	const model = modelDef(sequelize, Sequelize.DataTypes);
 	db[model.name] = model;
